@@ -1,10 +1,9 @@
 package lib;
 
 import java.time.LocalDate;
-import java.util.List;
 
 
-public class EmployeeSalary extends Employee{
+public class EmployeeSalary {
 	private int monthlySalary;
 	private int otherMonthlyIncome;
 	private int annualDeductible;
@@ -13,20 +12,29 @@ public class EmployeeSalary extends Employee{
 	private int dayJoined;
 	private int monthWorkingInYear;
 	private boolean isForeigner;
-    private String spouseIdNumber;
-    private List<String> childIdNumbers;
+	private Employee employee;
+	private EmployeeFamily family;
 
-    public EmployeeSalary(String employeeId, String firstName, String lastName, String idNumber, String address, int yearJoined, int monthJoined, int dayJoined, boolean isForeigner, boolean gender, String spouseIdNumber, List<String> childIdNumbers) {
-        super(employeeId, firstName, lastName, idNumber, address, isForeigner, gender);
+    public EmployeeSalary(Employee employee, EmployeeFamily family) {
 		this.dayJoined = dayJoined;
 		this.monthJoined = monthJoined;
 		this.yearJoined = yearJoined;
-		this.spouseIdNumber = spouseIdNumber;
-		this.childIdNumbers = childIdNumbers;
+		this.employee = employee;
+		this.family = family;
 	}
 	
-
-	
+	public int getMonthlySalary(){
+		return  this.monthlySalary;
+	}
+	public int getNumberOfMonthWorking(){
+		return  this.monthWorkingInYear;
+	}
+	public int getOtherMonthlyIncome(){
+		return  this.otherMonthlyIncome;
+	}
+	public  int getDeductible(){
+		return this.annualDeductible;
+	}
 	/**
 	 * Fungsi untuk menentukan gaji bulanan pegawai berdasarkan grade kepegawaiannya (grade 1: 3.000.000 per bulan, grade 2: 5.000.000 per bulan, grade 3: 7.000.000 per bulan)
 	 * Jika pegawai adalah warga negara asing gaji bulanan diperbesar sebanyak 50%
@@ -70,6 +78,6 @@ public class EmployeeSalary extends Employee{
 		}else {
 			monthWorkingInYear = 12;
 		}
-		return TaxFunction.calculateTax(monthlySalary, otherMonthlyIncome, monthWorkingInYear, annualDeductible, spouseIdNumber.equals(""), childIdNumbers.size());
+		return TaxFunction.calculateTax(this,family);
 	}
 }
